@@ -23,9 +23,9 @@ Signed-off-by: Mantas Pucka <mantas@8devices.com>
  		return ret;
  
 -	qcom_add_glink_subdev(rproc, &wcss->glink_subdev, "q6wcss");
++	qcom_add_glink_subdev(rproc, &wcss->glink_subdev, desc->ssr_name);
  	qcom_add_pdm_subdev(rproc, &wcss->pdm_subdev);
 -	qcom_add_ssr_subdev(rproc, &wcss->ssr_subdev, "q6wcss");
-+	qcom_add_glink_subdev(rproc, &wcss->glink_subdev, desc->ssr_name);
 +	qcom_add_ssr_subdev(rproc, &wcss->ssr_subdev, desc->ssr_name);
  
  	if (desc->ssctl_id)

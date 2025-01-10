@@ -8667,9 +8667,9 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
 +		return 0;
 +
 +	if (soc_version_major > 1)
-+		strncpy(prop_name, prop_name_v2, strlen(prop_name_v2));
++		strscpy(prop_name, prop_name_v2, sizeof(prop_name));
 +	else
-+		strncpy(prop_name, prop_name_def, strlen(prop_name_def));
++		strscpy(prop_name, prop_name_def, sizeof(prop_name));
 +
 +	if (!of_find_property(vreg->of_node, prop_name, &len)) {
 +		cpr3_err(vreg, "property %s is missing\n", prop_name);
@@ -8718,8 +8718,8 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
 +			"qcom,cpr-cold-temp-voltage-adjustment-%d",
 +			vreg->part_type);
 +	} else {
-+		strncpy(prop_str, "qcom,cpr-cold-temp-voltage-adjustment",
-+			strlen("qcom,cpr-cold-temp-voltage-adjustment"));
++		strscpy(prop_str, "qcom,cpr-cold-temp-voltage-adjustment",
++			sizeof(prop_str));
 +	}
 +
 +	if (!of_find_property(vreg->of_node, prop_str, NULL)) {
@@ -8773,11 +8773,11 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
 +	BUG_ON(soc_version_major <= 0);
 +
 +	if (soc_version_major > 1)
-+		strncpy(prop_str, "qcom,cpr-cold-temp-threshold-v2",
-+			strlen("qcom,cpr-cold-temp-threshold-v2"));
++		strscpy(prop_str, "qcom,cpr-cold-temp-threshold-v2",
++			sizeof(prop_str));
 +	else
-+		strncpy(prop_str, "qcom,cpr-cold-temp-threshold",
-+			strlen("qcom,cpr-cold-temp-threshold"));
++		strscpy(prop_str, "qcom,cpr-cold-temp-threshold",
++			sizeof(prop_str));
 +
 +	if (!of_find_property(vreg->of_node, prop_str, NULL)) {
 +		/* No adjustment required. */
@@ -8816,16 +8816,16 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
 +			"qcom,cpr-cold-temp-voltage-adjustment-%d",
 +			vreg->part_type);
 +	} else {
-+		strncpy(req_prop_str, "qcom,cpr-cold-temp-voltage-adjustment",
-+			strlen("qcom,cpr-cold-temp-voltage-adjustment"));
++		strscpy(req_prop_str, "qcom,cpr-cold-temp-voltage-adjustment",
++			sizeof(req_prop_str));
 +	}
 +
 +	if (soc_version_major > 1)
-+		strncpy(prop_str, "qcom,cpr-cold-temp-threshold-v2",
-+			strlen("qcom,cpr-cold-temp-threshold-v2"));
++		strscpy(prop_str, "qcom,cpr-cold-temp-threshold-v2",
++			sizeof(prop_str));
 +	else
-+		strncpy(prop_str, "qcom,cpr-cold-temp-threshold",
-+			strlen("qcom,cpr-cold-temp-threshold"));
++		strscpy(prop_str, "qcom,cpr-cold-temp-threshold",
++			sizeof(prop_str));
 +
 +	if (!of_find_property(vreg->of_node, req_prop_str, NULL)) {
 +		/* No adjustment required. */
@@ -8882,8 +8882,8 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
 +			 "qcom,cpr-open-loop-voltage-fuse-adjustment-%d",
 +			 vreg->part_type);
 +	} else {
-+		strncpy(prop_str, "qcom,cpr-open-loop-voltage-fuse-adjustment",
-+			strlen("qcom,cpr-open-loop-voltage-fuse-adjustment"));
++		strscpy(prop_str, "qcom,cpr-open-loop-voltage-fuse-adjustment",
++			sizeof(prop_str));
 +	}
 +
 +	if (!of_find_property(vreg->of_node, prop_str, NULL)) {
@@ -11664,7 +11664,7 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
 +		.of_match_table	= cpr4_regulator_match_table,
 +	},
 +	.probe		= cpr4_apss_regulator_probe,
-+	.remove		= cpr4_apss_regulator_remove,
++	.remove_new	= cpr4_apss_regulator_remove,
 +	.suspend	= cpr4_apss_regulator_suspend,
 +	.resume		= cpr4_apss_regulator_resume,
 +};
