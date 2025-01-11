@@ -270,7 +270,7 @@
 	};
 };
 
-&sdhc {
+&sdhc_1 {
 	pinctrl-0 = <&sd_pins>;
 	pinctrl-names = "default";
 	status = "okay";
