@@ -28,6 +28,9 @@ nss_fw="/lib/firmware/qca*.bin"
 # shellcheck disable=2086
 [ "$(ls $nss_fw 2> /dev/null)" ] && nss_version=$(grep -h -m 1 -a -o 'Version:.[^[:cntrl:]]*' $nss_fw | head -1 | cut -d ' ' -f 2)
 
+# CPU governors
+cpu=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+
 # ATH11K firmware version
 ath11k_fw=$(grep -hm1 -a -o 'WLAN.[^[:cntrl:]]*SILICONZ-1' /lib/firmware/*/q6* | head -1)
 
@@ -56,6 +59,7 @@ echo -e "${bold}${red}IPQ BRANCH${reset}: ${cyan}${ipq_branch}${reset}"
 echo -e "${bold}${red}IPQ COMMIT${reset}: ${cyan}${ipq_commit}${reset}"
 echo -e "${bold}${red}  IPQ DATE${reset}: ${cyan}${ipq_date}${reset}"
 echo -e "${bold}${red}    NSS FW${reset}: ${magenta}${nss_version}${reset}"
+echo -e "${bold}${red}  CPU MODE${reset}: ${magenta}${cpu}${reset}"
 echo -e "${bold}${red}  MAC80211${reset}: ${yellow}${mac80211_version}${reset}"
 echo -e "${bold}${red} ATH11K FW${reset}: ${green}${ath11k_fw}${reset}"
 
