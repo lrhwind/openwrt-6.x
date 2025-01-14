@@ -405,7 +405,15 @@
  	net_hotdata.skbuff_cache = kmem_cache_create_usercopy("skbuff_head_cache",
  					      sizeof(struct sk_buff),
  					      0,
-@@ -6660,6 +6774,8 @@ static int pskb_carve_inside_header(stru
+@@ -5126,6 +5240,7 @@ void __init skb_init(void)
+ 						SKB_SMALL_HEAD_HEADROOM,
+ 						NULL);
+ 	skb_extensions_init();
++	skb_recycler_init();
+ }
+ 
+ static int
+@@ -6660,6 +6775,8 @@ static int pskb_carve_inside_header(stru
  	if (skb_pfmemalloc(skb))
  		gfp_mask |= __GFP_MEMALLOC;
  
@@ -414,7 +422,7 @@
  	data = kmalloc_reserve(&size, gfp_mask, NUMA_NO_NODE, NULL);
  	if (!data)
  		return -ENOMEM;
-@@ -6776,6 +6892,8 @@ static int pskb_carve_inside_nonlinear(s
+@@ -6776,6 +6893,8 @@ static int pskb_carve_inside_nonlinear(s
  	if (skb_pfmemalloc(skb))
  		gfp_mask |= __GFP_MEMALLOC;
  
