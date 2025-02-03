@@ -386,7 +386,7 @@ $(eval $(call KernelPackage,sound-hda-core))
 define KernelPackage/snd-hda-scodec-component
   SUBMENU:=$(SOUND_MENU)
   TITLE:= HD Audio Codec Component
-  DEPENDS:=@LINUX_6_12
+  DEPENDS:=@!LINUX_6_6
   KCONFIG:= \
 	CONFIG_SND_HDA_SCODEC_COMPONENT
   FILES:= \
@@ -405,7 +405,7 @@ define KernelPackage/sound-hda-codec-realtek
   FILES:= \
 	$(LINUX_DIR)/sound/pci/hda/snd-hda-codec-realtek.ko
   AUTOLOAD:=$(call AutoProbe,snd-hda-codec-realtek)
-  $(call AddDepends/sound,kmod-sound-hda-core +LINUX_6_12:kmod-snd-hda-scodec-component)
+  $(call AddDepends/sound,kmod-sound-hda-core +!LINUX_6_6:kmod-snd-hda-scodec-component)
 endef
 
 define KernelPackage/sound-hda-codec-realtek/description

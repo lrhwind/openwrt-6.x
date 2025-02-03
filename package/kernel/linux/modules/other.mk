@@ -827,7 +827,7 @@ endef
 
 define KernelPackage/zram/config
   if PACKAGE_kmod-zram
-    if LINUX_6_12
+    if !LINUX_6_6
         config KERNEL_ZRAM_BACKEND_LZO
                 bool "lzo and lzo-rle compression support" if KERNEL_ZRAM_BACKEND_LZ4 || \
                     KERNEL_ZRAM_BACKEND_LZ4HC || KERNEL_ZRAM_BACKEND_ZSTD
@@ -850,23 +850,23 @@ define KernelPackage/zram/config
 
     config KERNEL_ZRAM_DEF_COMP_LZORLE
             bool "lzo-rle"
-            depends on KERNEL_ZRAM_BACKEND_LZO || !LINUX_6_12
+            depends on KERNEL_ZRAM_BACKEND_LZO || LINUX_6_6
 
     config KERNEL_ZRAM_DEF_COMP_LZO
             bool "lzo"
-            depends on KERNEL_ZRAM_BACKEND_LZO || !LINUX_6_12
+            depends on KERNEL_ZRAM_BACKEND_LZO || LINUX_6_6
 
     config KERNEL_ZRAM_DEF_COMP_LZ4
             bool "lz4"
-            depends on KERNEL_ZRAM_BACKEND_LZ4 || !LINUX_6_12
+            depends on KERNEL_ZRAM_BACKEND_LZ4 || LINUX_6_6
 
     config KERNEL_ZRAM_DEF_COMP_LZ4HC
             bool "lz4-hc"
-            depends on KERNEL_ZRAM_BACKEND_LZ4HC || !LINUX_6_12
+            depends on KERNEL_ZRAM_BACKEND_LZ4HC || LINUX_6_6
 
     config KERNEL_ZRAM_DEF_COMP_ZSTD
             bool "zstd"
-            depends on KERNEL_ZRAM_BACKEND_ZSTD || !LINUX_6_12
+            depends on KERNEL_ZRAM_BACKEND_ZSTD || LINUX_6_6
 
     endchoice
   endif
@@ -1067,9 +1067,9 @@ define KernelPackage/tpm
   TITLE:=TPM Hardware Support
   DEPENDS:= +kmod-random-core +kmod-asn1-decoder \
 	  +kmod-asn1-encoder +kmod-oid-registry \
-	  +LINUX_6_12:kmod-crypto-ecdh \
-	  +LINUX_6_12:kmod-crypto-kpp \
-	  +LINUX_6_12:kmod-crypto-lib-aescfb
+	  +!LINUX_6_6:kmod-crypto-ecdh \
+	  +!LINUX_6_6:kmod-crypto-kpp \
+	  +!LINUX_6_6:kmod-crypto-lib-aescfb
   KCONFIG:= CONFIG_TCG_TPM
   FILES:= $(LINUX_DIR)/drivers/char/tpm/tpm.ko
   AUTOLOAD:=$(call AutoLoad,10,tpm,1)
